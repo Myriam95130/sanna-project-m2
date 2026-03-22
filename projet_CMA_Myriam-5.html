@@ -1,0 +1,1475 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>L'Arabe Maronite Chypriote : Projet de Recherche M2</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Amiri:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+
+:root {
+  --sea:        #0a4a6e;   
+  --sea-mid:    #1a7aaa;   
+  --sea-light:  #5bb3d4;   
+  --sea-pale:   #d6eef8;   
+  --terra:      #c9622a;   
+  --terra-light:#e8a87c;   
+  --gold:       #c8a84b;  
+  --olive:      #6b7c3a;   
+  --sand:       #f5ede0;   
+  --parchment:  #faf6ef;   
+  --dark:       #1a1208;
+  --text:       #2c2010;
+  --muted:      #7a6a50;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Libre Baskerville', Georgia, serif;
+  font-size: 15px;
+  line-height: 1.85;
+  color: var(--text);
+  background: var(--parchment);
+  overflow-x: hidden;
+  text-align: justify;
+}
+
+/* BACKGROUND LETTERS (decorative) */
+.bg-letters {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.bg-letter {
+  position: absolute;
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 700;
+  opacity: 0.035;
+  color: var(--sea);
+  user-select: none;
+  animation: float 20s ease-in-out infinite;
+}
+
+.bg-letter.ar {
+  font-family: 'Amiri', serif;
+  font-weight: 600;
+  color: var(--terra);
+  opacity: 0.04;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(var(--rot)); }
+  50%       { transform: translateY(-18px) rotate(var(--rot)); }
+}
+
+.hero {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 4rem 2rem 9rem;
+  background: linear-gradient(
+    160deg,
+    #0a2e45 0%,
+    #0d4a6e 30%,
+    #0e5a82 55%,
+    #1a7aaa 80%,
+    #2693c8 100%
+  );
+  overflow: hidden;
+}
+
+/* vagues animées */
+.hero::before {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0; right: 0;
+  height: 120px;
+  background: var(--parchment);
+  clip-path: ellipse(55% 100% at 50% 100%);
+}
+
+.hero-waves {
+  position: absolute;
+  inset: 0;
+  opacity: 0.08;
+  background:
+    repeating-linear-gradient(
+      -45deg,
+      transparent 0px,
+      transparent 28px,
+      rgba(255,255,255,0.4) 28px,
+      rgba(255,255,255,0.4) 30px
+    );
+  animation: wavemove 25s linear infinite;
+}
+
+@keyframes wavemove {
+  from { background-position: 0 0; }
+  to   { background-position: 100px 100px; }
+}
+
+.hero-koine {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  opacity: 0.025;
+  pointer-events: none;
+}
+
+.hero-koine span {
+  font-size: clamp(2rem, 6vw, 5rem);
+  color: white;
+  font-family: 'Amiri', serif;
+  line-height: 1.2;
+}
+
+.hero-koine span.gr {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+}
+
+.hero-badge {
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.25);
+  border-radius: 40px;
+  padding: 0.35rem 1.2rem;
+  font-size: 0.78rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.85);
+  margin-bottom: 2rem;
+  backdrop-filter: blur(8px);
+  animation: fadein 1s ease both;
+  position: relative;
+  z-index: 2;
+}
+
+.hero-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2.6rem, 7vw, 5.5rem);
+  font-weight: 700;
+  color: white;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.5rem;
+  animation: fadein 1.2s ease both 0.2s;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.6), 0 0 60px rgba(0,0,0,0.4);
+  position: relative;
+  z-index: 2;
+}
+
+.hero-title em {
+  font-style: italic;
+  color: var(--terra-light);
+}
+
+.hero-subtitle em,
+.sanna-orange {
+  font-style: italic;
+  color: var(--terra-light) !important;
+}
+
+.hero-arabic {
+  font-family: 'Amiri', serif;
+  font-size: clamp(1.4rem, 4vw, 2.8rem);
+  color: rgba(255,255,255,0.8);
+  font-weight: 400;
+  margin-bottom: 2rem;
+  direction: rtl;
+  animation: fadein 1.2s ease both 0.4s;
+  text-shadow: 0 1px 6px rgba(0,0,0,0.5);
+  position: relative;
+  z-index: 2;
+}
+
+.hero-subtitle {
+  font-size: 1.05rem;
+  color: rgba(255,255,255,0.85);
+  max-width: 600px;
+  line-height: 1.7;
+  margin-bottom: 3rem;
+  animation: fadein 1.2s ease both 0.6s;
+  font-style: italic;
+  position: relative;
+  z-index: 2;
+  text-shadow: 0 1px 6px rgba(0,0,0,0.4);
+}
+
+.hero-meta {
+  display: flex;
+  gap: 1.2rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  animation: fadein 1.2s ease both 0.8s;
+  position: relative;
+  z-index: 2;
+}
+
+.hero-meta-item {
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 8px;
+  padding: 0.7rem 1.4rem;
+  text-align: center;
+  backdrop-filter: blur(6px);
+}
+
+.hero-meta-item .label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: rgba(255,255,255,0.5);
+  display: block;
+}
+
+.hero-meta-item .value {
+  font-size: 0.92rem;
+  color: rgba(255,255,255,0.9);
+  font-weight: 700;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.05rem;
+}
+
+@keyframes fadein {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* NAVIGATION  */
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(10, 74, 110, 0.97);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  padding: 0 2rem;
+  display: flex;
+  justify-content: center;
+  gap: 0;
+  overflow-x: auto;
+}
+
+nav a {
+  display: inline-block;
+  padding: 0.85rem 1.1rem;
+  color: rgba(255,255,255,0.65);
+  text-decoration: none;
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s ease;
+}
+
+nav a:hover {
+  color: white;
+  border-bottom-color: var(--terra-light);
+}
+
+/* LAYOUT */
+.container {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  position: relative;
+  z-index: 1;
+}
+
+.section {
+  padding: 5rem 0 3rem;
+}
+
+/* SECTION TITLES */
+.section-label {
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--sea-mid);
+  margin-bottom: 0.6rem;
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+.section-label::before {
+  content: '';
+  display: inline-block;
+  width: 24px;
+  height: 1px;
+  background: var(--sea-mid);
+}
+
+h2.section-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.9rem, 4vw, 2.8rem);
+  font-weight: 700;
+  color: var(--sea);
+  line-height: 1.15;
+  margin-bottom: 0.4rem;
+  letter-spacing: -0.02em;
+}
+
+h2.section-title em {
+  font-style: italic;
+  color: var(--terra);
+}
+
+.title-rule {
+  width: 50px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--terra), var(--gold));
+  margin: 1rem 0 2.5rem;
+  border-radius: 2px;
+}
+
+h3.subsection {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.45rem;
+  font-weight: 600;
+  color: var(--sea);
+  margin: 2.5rem 0 0.8rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 1px solid rgba(10,74,110,0.15);
+}
+
+p {
+  margin-bottom: 1.2rem;
+  color: var(--text);
+}
+
+p em, em { font-style: italic; color: var(--sea); }
+strong { font-weight: 700; color: var(--dark); }
+
+/* HIGHLIGHT BOXES */
+.highlight {
+  border-left: 3px solid var(--sea-mid);
+  background: linear-gradient(135deg, var(--sea-pale) 0%, rgba(214,238,248,0.3) 100%);
+  padding: 1.4rem 1.8rem;
+  margin: 2rem 0;
+  border-radius: 0 8px 8px 0;
+  font-style: italic;
+  font-size: 1.05rem;
+  color: var(--sea);
+  position: relative;
+}
+
+.highlight::before {
+  content: '❝';
+  position: absolute;
+  top: -0.5rem;
+  left: 1rem;
+  font-size: 2.5rem;
+  color: var(--sea-mid);
+  opacity: 0.3;
+  font-style: normal;
+}
+
+.highlight .source {
+  display: block;
+  margin-top: 0.6rem;
+  font-size: 0.82rem;
+  font-style: normal;
+  color: var(--muted);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+/* INFO CARDS */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.2rem;
+  margin: 2rem 0;
+}
+
+.card {
+  background: white;
+  border: 1px solid rgba(10,74,110,0.12);
+  border-radius: 10px;
+  padding: 1.4rem;
+  box-shadow: 0 2px 16px rgba(10,74,110,0.06);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 24px rgba(10,74,110,0.12);
+}
+
+.card-icon {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--sea-mid);
+  margin-bottom: 0.8rem;
+  display: block;
+  border-bottom: 1px solid var(--sea-pale);
+  padding-bottom: 0.4rem;
+}
+
+.card-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--sea);
+  margin-bottom: 0.4rem;
+}
+
+.card p {
+  font-size: 0.88rem;
+  color: var(--muted);
+  margin: 0;
+  line-height: 1.6;
+}
+
+.stat-band {
+  background: linear-gradient(135deg, var(--sea) 0%, var(--sea-mid) 100%);
+  color: white;
+  padding: 3rem 2rem;
+  margin: 3rem 0;
+  border-radius: 12px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 2rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.stat-band::before {
+  content: 'سنّا';
+  position: absolute;
+  right: -1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: 'Amiri', serif;
+  font-size: 8rem;
+  color: white;
+  opacity: 0.05;
+  pointer-events: none;
+}
+
+.stat-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.8rem;
+  font-weight: 700;
+  color: var(--terra-light);
+  line-height: 1;
+  display: block;
+}
+
+.stat-label {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: rgba(255,255,255,0.7);
+  margin-top: 0.4rem;
+  display: block;
+}
+
+.timeline {
+  position: relative;
+  padding-left: 2rem;
+  margin: 2rem 0;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 6px;
+  top: 0; bottom: 0;
+  width: 2px;
+  background: linear-gradient(to bottom, var(--sea-mid), var(--terra));
+}
+
+.tl-item {
+  position: relative;
+  margin-bottom: 1.8rem;
+  padding-left: 1.2rem;
+}
+
+.tl-item::before {
+  content: '';
+  position: absolute;
+  left: -1.6rem;
+  top: 0.5rem;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--sea-mid);
+  border: 2px solid var(--parchment);
+  box-shadow: 0 0 0 2px var(--sea-mid);
+}
+
+.tl-date {
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--terra);
+  display: block;
+  margin-bottom: 0.2rem;
+}
+
+.tl-text {
+  font-size: 0.94rem;
+  color: var(--text);
+  margin: 0;
+}
+
+.criteria {
+  counter-reset: crit;
+  list-style: none;
+  margin: 1.5rem 0;
+}
+
+.criteria li {
+  counter-increment: crit;
+  display: flex;
+  gap: 1.2rem;
+  margin-bottom: 1.2rem;
+  align-items: flex-start;
+}
+
+.criteria li::before {
+  content: counter(crit);
+  min-width: 2rem;
+  height: 2rem;
+  background: var(--sea);
+  color: white;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1rem;
+  font-weight: 700;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 0.1rem;
+}
+
+.criteria li p { margin: 0; font-size: 0.94rem; }
+.criteria li strong { color: var(--sea); }
+
+.tools-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+  margin: 2rem 0;
+}
+
+.tool-card {
+  background: white;
+  border: 1px solid rgba(10,74,110,0.12);
+  border-radius: 10px;
+  padding: 1.2rem 1.4rem;
+  border-top: 3px solid var(--sea-mid);
+  box-shadow: 0 2px 10px rgba(10,74,110,0.05);
+}
+
+.tool-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--sea);
+  margin-bottom: 0.3rem;
+}
+
+.tool-desc {
+  font-size: 0.83rem;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+/* RESEARCH QUESTIONS */
+.rq-list {
+  list-style: none;
+  margin: 1.5rem 0;
+}
+
+.rq-list li {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.2rem;
+  padding: 1.2rem 1.5rem;
+  background: white;
+  border-radius: 8px;
+  border-left: 3px solid var(--gold);
+  box-shadow: 0 1px 8px rgba(10,74,110,0.06);
+  font-size: 0.96rem;
+  font-style: italic;
+  color: var(--sea);
+  align-items: flex-start;
+}
+
+.rq-list li::before {
+  content: '?';
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--gold);
+  line-height: 1;
+  flex-shrink: 0;
+  font-style: normal;
+}
+
+/* BIBLIOGRAPHY */
+.bib-section {
+  background: white;
+  border: 1px solid rgba(10,74,110,0.12);
+  border-radius: 12px;
+  padding: 2rem;
+  margin: 2rem 0;
+  box-shadow: 0 2px 16px rgba(10,74,110,0.06);
+}
+
+.bib-cat {
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--sea-mid);
+  font-weight: 700;
+  margin: 1.5rem 0 0.8rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 1px solid var(--sea-pale);
+}
+
+.bib-cat:first-child { margin-top: 0; }
+
+.bib-entry {
+  font-size: 0.87rem;
+  color: var(--text);
+  margin-bottom: 0.6rem;
+  padding-left: 1.2rem;
+  text-indent: -1.2rem;
+  line-height: 1.65;
+}
+
+.bib-entry .author { font-weight: 700; }
+.bib-entry .title  { font-style: italic; color: var(--sea); }
+
+.bib-entry.ar {
+  direction: rtl;
+  text-align: right;
+  font-family: 'Amiri', serif;
+  font-size: 0.92rem;
+  text-indent: 0;
+  padding-left: 0;
+  padding-right: 1.2rem;
+}
+
+footer {
+  background: var(--sea);
+  color: rgba(255,255,255,0.7);
+  padding: 3rem 2rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+footer::before {
+  content: 'سنّا  •  Σάννα  •  Sanna';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: 'Amiri', serif;
+  font-size: 4rem;
+  color: white;
+  opacity: 0.04;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+footer .foot-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.1rem;
+  color: white;
+  font-weight: 600;
+  display: block;
+  margin-bottom: 0.3rem;
+}
+
+footer .foot-info {
+  font-size: 0.82rem;
+  letter-spacing: 0.08em;
+}
+
+/* DIVIDER */
+.ornament {
+  text-align: center;
+  color: var(--terra-light);
+  font-size: 1.2rem;
+  margin: 2rem 0;
+  opacity: 0.6;
+  letter-spacing: 0.3em;
+}
+
+.tag {
+  display: inline-block;
+  background: var(--sea-pale);
+  color: var(--sea);
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 0.2rem 0.7rem;
+  border-radius: 20px;
+  margin: 0.2rem;
+}
+
+.tag.terra { background: #fbe9d8; color: var(--terra); }
+.tag.gold  { background: #fdf5dc; color: #9a6f10; }
+.tag.olive { background: #edf2db; color: var(--olive); }
+
+/* RESPONSIVE */
+@media (max-width: 600px) {
+  .hero { min-height: 85vh; }
+  nav a { padding: 0.75rem 0.7rem; font-size: 0.7rem; }
+  .card-grid { grid-template-columns: 1fr; }
+  .stat-band { grid-template-columns: repeat(2, 1fr); }
+}
+
+</style>
+</head>
+<body>
+
+<!-- BACKGROUND FLOATING LETTERS -->
+<div class="bg-letters" aria-hidden="true">
+  <!-- Lettres grecques -->
+  <span class="bg-letter gr" style="top:8%;left:5%;font-size:9rem;--rot:-12deg;animation-delay:0s">Σ</span>
+  <span class="bg-letter gr" style="top:25%;left:88%;font-size:7rem;--rot:8deg;animation-delay:3s">Λ</span>
+  <span class="bg-letter gr" style="top:55%;left:3%;font-size:11rem;--rot:-5deg;animation-delay:6s">Ω</span>
+  <span class="bg-letter gr" style="top:75%;left:80%;font-size:8rem;--rot:15deg;animation-delay:2s">Δ</span>
+  <span class="bg-letter gr" style="top:40%;left:45%;font-size:6rem;--rot:-8deg;animation-delay:9s">Φ</span>
+  <span class="bg-letter gr" style="top:90%;left:15%;font-size:7rem;--rot:5deg;animation-delay:4s">Θ</span>
+  <span class="bg-letter gr" style="top:15%;left:60%;font-size:5rem;--rot:-18deg;animation-delay:7s">Γ</span>
+  <!-- Lettres arabes -->
+  <span class="bg-letter ar" style="top:5%;left:70%;font-size:10rem;--rot:5deg;animation-delay:1s">ع</span>
+  <span class="bg-letter ar" style="top:35%;left:12%;font-size:8rem;--rot:-10deg;animation-delay:5s">ق</span>
+  <span class="bg-letter ar" style="top:65%;left:55%;font-size:12rem;--rot:7deg;animation-delay:8s">ل</span>
+  <span class="bg-letter ar" style="top:80%;left:35%;font-size:7rem;--rot:-4deg;animation-delay:3s">م</span>
+  <span class="bg-letter ar" style="top:48%;left:75%;font-size:9rem;--rot:12deg;animation-delay:11s">ن</span>
+  <span class="bg-letter ar" style="top:20%;left:30%;font-size:6rem;--rot:-15deg;animation-delay:6s">ب</span>
+  <span class="bg-letter ar" style="top:92%;left:65%;font-size:8rem;--rot:3deg;animation-delay:2s">ر</span>
+</div>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-waves"></div>
+  <div class="hero-koine" aria-hidden="true">
+    <span>سنّا</span><span class="gr">Σάννα</span><span>عربي</span>
+    <span class="gr">Κυπριακή</span><span>قبرص</span><span class="gr">Αραβικά</span>
+    <span>ماروني</span><span class="gr">Μαρωνίτες</span>
+  </div>
+
+  <div class="hero-badge">Projet de Recherche · Master TAL · INALCO</div>
+
+  <h1 class="hero-title">
+    L'Arabe <em>Maronite</em><br>Chypriote
+  </h1>
+
+  <p class="hero-arabic">اللهجة العربية المارونية القبرصية</p>
+
+  <p class="hero-subtitle">
+    Étude et documentation du <em class="sanna-orange">Sanna</em> par des méthodes de TAL
+  </p>
+
+  <div class="hero-meta">
+    <div class="hero-meta-item">
+      <span class="label">Étudiante</span>
+      <span class="value">Myriam Ben Hadj Sghaier</span>
+    </div>
+    <div class="hero-meta-item">
+      <span class="label">Cursus actuel</span>
+      <span class="value">M1 TAL</span>
+    </div>
+    <div class="hero-meta-item">
+      <span class="label">Sujet prévu pour</span>
+      <span class="value">M2 TAL parcours R&amp;D</span>
+    </div>
+    <div class="hero-meta-item">
+      <span class="label">Établissement de rattachement</span>
+      <span class="value">INALCO</span>
+    </div>
+    <div class="hero-meta-item">
+      <span class="label">Co-accréditation</span>
+      <span class="value">INALCO, Sorbonne Nouvelle &amp; Paris Nanterre</span>
+    </div>
+  </div>
+</header>
+
+<nav>
+  <a href="#objectifs">Objectifs</a>
+  <a href="#contexte">Contexte</a>
+  <a href="#dialectologie">Dialectologie</a>
+  <a href="#peripheriques">Parlers périphériques</a>
+  <a href="#chypre">Chypre & Sanna</a>
+  <a href="#methodologie">Méthodologie</a>
+  <a href="#bibliographie">Bibliographie</a>
+</nav>
+
+<!-- OBJECTIFS -->
+<section class="section" id="objectifs">
+  <div class="container">
+    <p class="section-label">Point de départ</p>
+    <h2 class="section-title">Objectifs du <em>mémoire</em></h2>
+    <div class="title-rule"></div>
+
+    <p>Ce mémoire de M2 fait appel à divers champs disciplinaires tels que la <strong>linguistique computationnelle</strong>, la <strong>dialectologie arabe</strong> et la <strong>documentation de parlers sévèrement en danger</strong>. Il prend pour étude de cas <em>l'arabe chypriote</em>, également connu sous le nom de <strong>Sanna</strong> (سنّا), un parler arabe pratiqué par les communautés chrétiennes maronites de Chypre.</p>
+
+    <ul class="rq-list">
+      <li>Dans quelle mesure des méthodes de TAL permettent-elles d'extraire une proto-grammaire morpho-syntaxique à partir d'un corpus oral réduit d'un parler en danger ?</li>
+      <li>Quelles sont les limites du TAL et de la linguistique computationnelle pour les langues orales en danger ?</li>
+      <li>Dans quelle mesure les outils du TAL peuvent-ils aider à la documentation des parlers en danger ?</li>
+      <li>Quels types de structures morphosyntaxiques peuvent être mis en évidence à partir d'une approche computationnelle appliquée à un parler arabe très peu doté ?</li>
+    </ul>
+
+    <div class="card-grid">
+      <div class="card">
+        <span class="card-icon">I.</span>
+        <div class="card-title">Approche computationnelle</div>
+        <p>NooJ, Grew Arborator ou autres outils.</p>
+      </div>
+      <div class="card">
+        <span class="card-icon">II.</span>
+        <div class="card-title">Corpus oral</div>
+        <p>Travail sur des données orales.</p>
+      </div>
+      <div class="card">
+        <span class="card-icon">III.</span>
+        <div class="card-title">Documentation linguistique</div>
+        <p>Contribution à la préservation d'un parler sévèrement en danger, statut officiellement reconnu par l'UNESCO.</p>
+      </div>
+    </div>
+</section>
+
+<!-- CONTEXTE -->
+<section class="section" id="contexte" style="background:rgba(214,238,248,0.25)">
+  <div class="container">
+    <p class="section-label">Cadre général</p>
+    <h2 class="section-title">La situation linguistique<br>du <em>monde arabophone</em></h2>
+    <div class="title-rule"></div>
+
+    <p>Le monde arabe est une région linguistiquement complexe englobant le Maghreb et le Moyen-Orient. Les populations qui y vivent sont très hétérogènes, tout comme les langues qui y sont parlées. Bien que tous les pays de la région aient pour langue officielle l'arabe, celle-ci ne constitue pas la langue maternelle de toutes ces communautés. On y parle des variétés berbères au Mali, au Maroc, en Algérie, en Tunisie et en Égypte mais également des variétés kurdes et araméennes en Turquie, en Irak et Syrie ou encore le
+    nubien en Égypte et au Soudan, le zaghawa dans le Darfour du Nord ainsi que des variétés sudarabiques en Arabie Saoudite, au Yémen et en Oman, telles que le soqotri et le mehri. Seulement, on y parle surtout des dialectes arabes régionaux.</p>
+
+    <h3 class="subsection">La diglossie arabe</h3>
+    <p>En ce qui concerne les arabophones de manière générale, le monde arabe connaît une situation que les linguistes qualifient de <em>diglossie</em>, qui consiste en la coexistence de deux variétés d'une même langue au sein d'un même espace sociolinguistique, organisées selon des rapports hiérarchiques (Matthey, 2021).</p>
+
+    <div class="highlight">
+      Ferguson (1959) qualifie cette variété parlée de l'arabe de <em>low variety</em> (variété basse), par opposition à la <em>high variety</em> (variété haute) correspondant à l'arabe standard.
+      <span class="source">: Ferguson, 1959</span>
+    </div>
+
+    <p>Les explorateurs européens constateront que cette variété dite « vulgaire » est celle transmise naturellement aux enfants par les locuteurs (Matthey, 2021).</p>
+  </div>
+</section>
+
+<!-- DIALECTOLOGIE -->
+<section class="section" id="dialectologie">
+  <div class="container">
+    <p class="section-label">Classification</p>
+    <h2 class="section-title">Éléments de <em>dialectologie</em> arabe</h2>
+    <div class="title-rule"></div>
+
+    <p>Dans le champ de la dialectologie arabe, il est courant de recourir à des catégories telles que <em>dialectes maghrébins</em>, <em>dialectes orientaux</em>, <em>dialectes péninsulaires</em>, ou encore à des oppositions sociolinguistiques comme parlers ruraux/citadins et parlers bédouins/sédentaires (Cohen, 2001, Miller, 2007).</p>
+
+    <p>Ces appellations reposent le plus souvent sur des découpages dichotomiques, pensés en opposition les uns aux autres (Maghreb ≠ Moyen-Orient, bédouin ≠ sédentaire). Toutefois, la classification dialectale prend véritablement sens à travers ce que les linguistes nomment des <strong>isoglosses</strong> ; des caractéristiques qui, lorsqu'elles sont identifiées, permettent d'établir des frontières linguistiques qui transcendent les frontières politiques (Cohen, 2001) mais également géographiques.</p>
+
+    <h3 class="subsection">Grands ensembles dialectaux</h3>
+
+    <div class="card-grid">
+      <div class="card">
+        <span class="card-icon">Maghreb</span>
+        <div class="card-title">Dialectes maghrébins</div>
+        <p>Dialectes du Maroc, de l’Algérie, de la Tunisie et de la Libye, débordant même marginalement sur l’ouest de l’Égypte
+        (Benkato, 2020). À ces parlers vivants s’ajoutent également des parlers périphériques aujourd’hui éteints mais
+        historiquement rattachés à l’aire maghrébine, tels que l’arabe andalou et l’arabe sicilien.</p>
+      </div>
+      <div class="card">
+        <span class="card-icon">Moyen-Orient</span>
+        <div class="card-title">Dialectes orientaux</div>
+        <p>Les parlers orientaux s’étendent sur un vaste espace allant du delta du Nil jusqu’au nord du
+        Levant. Ils regroupent les parlers septentrionaux du Liban et de la Syrie, ainsi que certaines variétés urbaines
+        de Palestine, d’Irak et du sud de la Jordanie et se prolongent vers la péninsule Arabique, incluant l’Arabie
+        Saoudite, le Yémen, Oman et les Émirats Arabes Unis. À cet ensemble s’ajoutent des variétés issues de
+        situations de contact, dits pidgins ou créoles, notamment au Soudan et au sud de Djibouti, ainsi que dans le sud-est de la Turquie et en
+        Asie centrale (Grigore, 2019). Le groupe oriental vient également inclure le parler arabe de l’île de Chypre.</p>
+      </div>
+      <div class="card">
+        <span class="card-icon">Hors monde arabe</span>
+        <div class="card-title">Parlers périphériques</div>
+        <p>L'arabe sicilien (éteint), l'arabe andalou (éteint), l'arabe de Pantelleria (éteint), le maltais (héritier de l'arabe sicilien, sujet à débat), l'arabe chypriote (en voie d'extinction), la hassaniyya (du Mali, du Sénégal et du Niger), l'arabe tchadien aussi dit arabe choua/baggara, le kinubi, l'arabe du Khûzistan et les variétés d'Asie centrales.</p>
+      </div>
+    </div>
+
+    <div class="ornament">· · · · ·</div>
+
+    <p>L'arabe chypriote s'inscrit dans la continuité des parlers orientaux, tout en constituant un cas à part en raison de son isolement géographique et de son contact pluriséculaire avec le grec.</p>
+  </div>
+</section>
+
+<!-- PARLERS PÉRIPHÉRIQUES -->
+<section class="section" id="peripheriques" style="background:rgba(214,238,248,0.25)">
+  <div class="container">
+    <p class="section-label">Cadre théorique</p>
+    <h2 class="section-title">Les parlers <em>périphériques</em><br>de l'arabe</h2>
+    <div class="title-rule"></div>
+
+    <p>Dans le cadre de l’étude des variétés arabes, on désigne par <strong>parlers périphériques</strong> l’ensemble des variétés de
+      l’arabe parlées <strong>en dehors du monde arabe</strong> (Owens 2001), sans aucun contact avec la
+      langue arabe standard ou d’autres dialectes arabes (Borg 2004), entendu ici comme l’espace couvrant le Maghreb et
+      le Moyen-Orient, qui se situeraient en dehors de la <strong>zone de diglossie</strong> (Grigore 2019). La langue étudiée dans
+      ce travail s’inscrit précisément dans ce groupe. L’arabe chypriote est une langue orale et de
+      multiples projets d’élaboration d’un alphabet ont été mis en place afin de documenter au mieux ce parler en
+      danger. Comme le souligne la littérature, la notion de « périphérique » renvoie à des groupes linguistiques caractérisés par une position excentrée et souvent par
+      une forme d’isolement, géographique et socioculturel, ces parlers étant répartis de l’Asie centrale à l’Afrique,
+      ainsi que sur certaines îles de la Méditerranée. </p>
+
+    <p>Ces parlers se caractérisent par un ensemble de traits communs liés à leur trajectoire historique et
+      sociolinguistique. Ils se sont développés dans des contextes de contact prolongé avec des langues non
+      sémitiques, notamment <strong>des langues turciques</strong>, comme c’est le cas pour les <strong>parlers périphériques anatoliens</strong> et certaines variétés <strong>d’Asie centrale (Ouzbékistan, Tadjikistan)</strong>, ou encore <strong>indo-européennes</strong>, telles que le
+      persan pour <strong>l’arabe du Khûzistân</strong> et du <strong>Khorassan</strong> au <strong>sud-ouest de l’Iran</strong> (Leitner 2019), le grec dans le cas
+      de <strong>l’arabe chypriote</strong> (Borg 2004), ainsi que l’italien sur <strong>l’île de Pantelleria</strong> (Caubet 2025).
+      Par ailleurs, leur évolution s’est opérée dans un contexte de séparation progressive des centres arabophones, cette rupture remontant pour beaucoup de ces
+      variétés à plusieurs siècles (Akkuş, 2017). L’identification des parlers périphériques arabes repose sur trois
+      critères principaux, qui ont été définies par Borg (2004).</p>
+
+    <div class="card-grid">
+      <div class="card">
+        <span class="card-icon">Monde turcique</span>
+        <div class="card-title">Langues turciques</div>
+        <p>Parlers périphériques anatoliens, variétés d'Asie centrale (Ouzbékistan, Tadjikistan).</p>
+      </div>
+      <div class="card">
+        <span class="card-icon">Iran</span>
+        <div class="card-title">Persan</div>
+        <p>Arabe du Khûzistân et du Khorassan au sud-ouest de l'Iran.</p>
+      </div>
+      <div class="card">
+        <span class="card-icon">Chypre</span>
+        <div class="card-title">Grec</div>
+        <p>Arabe chypriote : cas étudié dans ce mémoire. Contact pluriséculaire intense avec le grec.</p>
+      </div>
+      <div class="card">
+        <span class="card-icon">Italie</span>
+        <div class="card-title">Italien</div>
+        <p>Arabe de l'île de Pantelleria (éteint), commune italienne en province sicilienne de Trapani.</p>
+      </div>
+      <div class="card">
+        <span class="card-icon">Malte (sujet à débat)</span>
+        <div class="card-title">Italien</div>
+        <p>Le maltais, langue officielle de l'archipelle de Malte, dernière héritière de la famille siculo-arabe.</p>
+      </div>
+    </div>
+
+    <h3 class="subsection">Les trois critères de Borg (2004)</h3>
+
+    <ul class="criteria">
+      <li><p>Le premier est d’ordre <strong>géographique</strong> et concerne
+      l’éloignement spatial par rapport au monde arabe.</p></li>
+      <li><p>Le deuxième relève d’une relative <strong>isolation</strong> vis-à-vis de la
+      culture arabe dominante, impliquant des phénomènes <strong>d’acculturation</strong>.</p></li>
+      <li><p>Enfin, le troisième critère est linguistique et correspond à des processus de <strong>mutation structurelle</strong> susceptibles de rendre ces parlers
+      partiellement, voire totalement, inintelligibles pour les locuteurs d’autres variétés de l’arabe. Tosco et
+      Manfredi (2013) ajoutent que ce type de parlers se distinguent des créoles et pidgins</p></li>
+    </ul>
+
+    <p>Grigore (2019) propose d’introduire un critère supplémentaire dans la classification des parlers arabes
+    périphériques, en soulignant les limites d’une approche fondée sur la généalogie. Bien que ces variétés
+    relèvent de l’arabe, elles ne peuvent être rattachées à une filiation généalogique directe. Cette absence de
+    continuité généalogique rend ainsi peu cohérente une classification strictement historique. Dans cette
+    perspective, Grigore préconise plutôt un classement fondé sur des critères spatiaux, privilégiant une
+    organisation par grandes aires géographiques, en fonction des continents où ces variétés sont attestées
+    (Grigore 2019), à savoir l’Afrique, l’Asie et l’Europe.</p>
+
+    <p>Dans l’aire africaine, on rencontre plusieurs parlers arabes qualifiés de périphériques parmi lesquels figure
+    notamment le Bagarra (Owens & Hassan, 2006). Le continent africain comprend également l’arabe occidental
+    soudanais, parlé par des groupes arabophones établis au Tchad, au Cameroun, en République centrafricaine
+    et au Nigeria. Certains auteurs proposent par ailleurs d’inclure dans cet ensemble des créoles à base arabe
+    développés en Afrique. C’est le cas du kinubi, parlé en Ouganda et au Kenya, que Rosenhouse et Kaye
+    (1997) considèrent comme relevant des parlers périphériques arabes.</p>
+
+   <p>En Asie, les parlers périphériques comprennent, comme indiqué précédemment, les variétés arabes de
+    Turquie, en particulier celles de la côte méditerranéenne, telles que celles de la région du Hatay, ainsi que les
+    parlers d’Anatolie orientale, notamment à Urfa et Harran (Procházka, 2003). À cet ensemble s’ajoutent les
+    variétés arabes d’Iran, en particulier celles du Khûzistân, à Ahwaz notamment, ainsi que l’arabe côtier des rives du Golfe persique. On inclut également dans ce groupe certaines variétés d’Asie centrale, attestées
+    notamment en Ouzbékistan et en Afghanistan.</p>
+
+    <p>En Europe, le cas le plus connu est celui du maltais, issu historiquement de l’arabe sicilien, dont le statut fait
+    encore l’objet de débats quant à son intégration parmi les parlers périphériques de la branche occidentale
+    nord-africaine de l’arabe. Le continent européen compte également d'autres variétés périphérique telles que
+    l’arabe chypriote, objet de la présente étude.</p>
+
+    <h3 class="subsection">Les parlers extra-périphériques</h3>
+
+    <p>David Cohen propose, dans la préface d’AIDA (1994), de faire une distinction conceptuelle entre <strong>parlers
+    périphériques</strong> et <strong>parlers extra-périphériques</strong>. Cette différenciation repose principalement sur des critères
+    sociolinguistiques, en particulier le statut social des dialectes, lesquels jouent un rôle déterminant dans la
+    compréhension de la diversité dialectale de l’arabe. Cohen souligne ainsi que les variétés parlées par des
+    groupes culturellement majoritaires au sein d’aires linguistiquement homogènes ne bénéficient pas du même
+    statut que celles associées à des groupes minoritaires, souvent marginalisés, dont la situation se caractérise
+    par une forme d’hétéroglossie. Il met également en évidence la diversité des statuts selon que le groupe
+    linguistique se situe en position périphérique, aux marges d’un espace donné, qu’il soit inséré dans un
+    environnement linguistique hétérogène ou qu’il corresponde à une communauté en expansion sur un
+    territoire nouvellement investi (Cohen, 1994, préface AIDA).</p>
+
+    <div class="highlight">
+      À titre d’exemple, l’arabe chypriote peut être
+      envisagé comme un dialecte <em>extra-périphérique</em> dans la mesure où il évolue au sein d’un espace linguistique
+      pluriel, marqué par la coexistence de l’arabe chypriote, du grec chypriote et du turc chypriote. 
+      <span class="source">: (El-Shazli, 2022, 2024)</span>
+    </div>
+
+    <h3 class="subsection">Inventaire des parlers arabes périphériques de nos jours</h3>
+
+    <p>Par aires géographiques :</p>
+
+    <div style="margin:1.5rem 0">
+      <span class="tag">Arabe maronite chypriote (Sanna)</span>
+      <span class="tag">Maltais</span>
+      <span class="tag terra">Arabe Choua/Baggara (Tchad)</span>
+      <span class="tag terra">Arabe occidental soudanais (Tchad, Cameroun, République centrafricaine, Nigéria) </span>
+      <span class="tag terra">Kinubi (Ouganda, Kenya)</span>
+      <span class="tag olive">Dialectes arabes d'Anatolie</span>
+      <span class="tag olive">Arabe du Khûzistân</span>
+      <span class="tag olive">Variétés d'Asie centrale</span>
+      <span class="tag gold">Hassaniyya (du Mali, du Sénégal et du Niger)</span>
+    </div>
+  </div>
+</section>
+
+<!-- CHYPRE & SANNA -->
+<section class="section" id="chypre">
+  <div class="container">
+    <p class="section-label">Étude de cas</p>
+    <h2 class="section-title">Chypre & le <em>Sanna</em></h2>
+    <div class="title-rule"></div>
+
+    <h3 class="subsection">L'île de Chypre</h3>
+    <p>Chypre est un État insulaire membre de l'UE et du Commonwealth, situé à <strong>65 km des côtes anatoliennes</strong>, à environ une centaine de kilomètres à l'ouest de la Syrie, ainsi qu'à 380 km des côtes de l'Égypte méridionale. L'île est divisée en deux zones : une partie turque au nord (~30% du territoire) et une partie grecque au sud (~60% du territoire). Chypre a pour langues officielles le grec et le turc.
+    Le parler arabe chypriote quant à lui, également appelé « arabe chypriote maronite », en anglais « cypriot maronite arabic » ou encore « Sanna », est un parler arabe pratiqué par les communautés chrétiennes maronites de Chypre, comptant environ 5000 personnes dont environ 1000 locuteurs natifs d’arabe chypriote. Leur village d’origine est Kormakiti, turcisé "Koruçam" en 1975. Tous les locuteurs d’arabe chypriote sont également locuteur de grec. </p>
+
+    <div class="stat-band">
+      <div>
+        <span class="stat-num">~5 000</span>
+        <span class="stat-label">Maronites de Chypre</span>
+      </div>
+      <div>
+        <span class="stat-num">~1 000</span>
+        <span class="stat-label">Locuteurs natifs</span>
+      </div>
+      <div>
+        <span class="stat-num">46%</span>
+        <span class="stat-label">Vocabulaire grec</span>
+      </div>
+      <div>
+        <span class="stat-num">0</span>
+        <span class="stat-label">Locuteur de moins de 30 ans</span>
+      </div>
+    </div>
+
+    <h3 class="subsection">Origine historique</h3>
+
+    <div class="timeline">
+      <div class="tl-item">
+        <span class="tl-date">Début de l'ère des Croisades</span>
+        <p class="tl-text">De forts mouvements arabes ont eu lieu à Chypre au début de l’ère des Croisades.</p>
+      </div>
+      <div class="tl-item">
+        <span class="tl-date">Fin du XII<sup>e</sup> siècle</span>
+        <p class="tl-text">D’autres mouvements
+      arabes ont également été situés à la fin du XIIe siècle, lorsque les Lusigan ont fait appel à des populations
+      chrétiennes d’Orient afin de peupler leur royaume (El-Shazli, 2022). Ces populations seraient principalement originaires de ce que l’on appelait Grande Syrie ou Bilād ach-Cham (<span dir="rtl" style="font-family:'Amiri';font-size:1rem">بلاد الشام</span> : Syrie, Liban, Palestine, Jordanie).</p>
+      </div>
+      <div class="tl-item">
+        <span class="tl-date">Époque ottomane</span>
+        <p class="tl-text">De nombreux villages maronites disparaissent progressivement.</p>
+      </div>
+      <div class="tl-item">
+        <span class="tl-date">1975</span>
+        <p class="tl-text">Après 1975,
+      la majorité des populations maronites a migré dans le Sud de l’île, à Nicosie principalement, suite aux
+      violents conflits inter-communautaires ayant éclaté au Nord de Chypre. Cette migration a fortement participé
+      au déclin de la langue. Les chercheurs ont constaté qu’aucun locuteur d’arabe chypriote n’a en dessous de 30
+      ans (Borg, 2004).</p>
+      </div>
+      <div class="tl-item">
+        <span class="tl-date">2002</span>
+        <p class="tl-text">L'arabe chypriote est classé <strong>langue sévèrement en danger</strong> par l'UNESCO.</p>
+      </div>
+      <div class="tl-item">
+        <span class="tl-date">Novembre 2008</span>
+        <p class="tl-text">Reconnaissance comme <strong>langue minoritaire</strong> selon la Charte européenne des langues régionales ou minoritaires.</p>
+      </div>
+    </div>
+
+    <h3 class="subsection">Caractéristiques linguistiques</h3>
+
+    <p>Borg penche pour une origine anatolienne ; il note des similitudes avec les
+    dialectes levantins et mésopotamiens (Turquie, Irak), tandis que d’autres considèrent l’arabe chypriote
+    comme une variante des dialectes arabes levantins (Syrie, Liban, Palestine, Jordanie). Ce parler présente de
+    fortes influences grecques d’ordre phonétiques, morphologiques et grammaticales. Selon Newton (Borg, 2004), le grec occuperait 38%
+    du vocabulaire. Ces données ont cependant été mises à jour à travers des études plus récentes puisque le grec occuperait environ 46% du vocabulaire de nos jours. (El-Shazli, 2020)</p>
+
+    <div class="highlight">
+      Alexander Borg (2004) décrit l'arabe chypriote comme « du grec vêtu d'un costume arabe transparent ».
+      <span class="source">: Borg, 2004, <em>Comparative Glossary of Cypriot Maronite Arabic</em></span>
+    </div>
+
+    <div class="card-grid">
+      <div class="card">
+        <span class="card-icon">Phonétique</span>
+        <div class="card-title">Influences phonétiques</div>
+        <p>Fortes influences du grec sur le système phonologique, avec adoption de phonèmes grecs absents en arabe.</p>
+      </div>
+      <div class="card">
+        <span class="card-icon">Moorphologie</span>
+        <div class="card-title">Influences morphologiques</div>
+        <p>Adoption de morphèmes grecs, affixes nominaux et verbaux issus du contact pluriséculaire.</p>
+      </div>
+      <div class="card">
+        <span class="card-icon">Syntaxe</span>
+        <div class="card-title">Influences grammaticales</div>
+        <p>Calques syntaxiques et restructurations grammaticales sous l'influence du grec chypriote.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MÉTHODOLOGIE -->
+<section class="section" id="methodologie" style="background:rgba(214,238,248,0.25)">
+  <div class="container">
+    <p class="section-label">Approche</p>
+    <h2 class="section-title"><em>Méthodologie</em> et outils</h2>
+    <div class="title-rule"></div>
+
+    <p>Le mémoire repose sur une approche computationnelle appliquée à un corpus oral réduit, combinant outils de TAL spécialisés pour les langues peu dotées.</p>
+
+    <h3 class="subsection">Outils TAL mobilisés</h3>
+
+    <div class="tools-grid">
+      <div class="tool-card">
+        <div class="tool-name">NooJ</div>
+        <div class="tool-desc">Plateforme de traitement linguistique par grammaires formelles. Permet la modélisation morphologique et syntaxique.</div>
+      </div>
+      <div class="tool-card">
+        <div class="tool-name">Grew Arborator</div>
+        <div class="tool-desc">Analyse syntaxique automatique pour identifier les structures grammaticales du corpus.</div>
+      </div>
+      <div class="tool-card">
+        <div class="tool-name">Autogramm</div>
+        <div class="tool-desc">Outil d'extraction automatique de grammaires à partir de corpus annotés ou semi-annotés.</div>
+      </div>
+    </div>
+
+    <h3 class="subsection">Défis spécifiques aux langues en danger</h3>
+
+    <ul class="criteria">
+      <li><p><strong>Corpus réduit</strong> : les données disponibles sont limitées, avec peu ou pas de ressources numériques existantes.</p></li>
+      <li><p><strong>Oralité</strong> : le Sanna est une langue essentiellement orale, sans tradition écrite standardisée, ce qui complexifie la transcription et l'annotation.</p></li>
+      <li><p><strong>Contact de langues</strong> : la forte influence du grec pourrait rendre délicate la segmentation morphologique héritée de l'arabe.</p></li>
+    </ul>
+  </div>
+</section>
+
+<!-- COMPARAISON AVEC L'ARABE -->
+<section class="section" id="comparaison" style="background:rgba(214,238,248,0.25)">
+  <div class="container">
+    <p class="section-label">Données linguistiques</p>
+    <h2 class="section-title"><em>Comparaison</em> avec l'arabe</h2>
+    <div class="title-rule"></div>
+
+    <p>Les tableaux suivants illustrent quelques correspondances et divergences entre l'arabe chypriote (CyA) et l'arabe standard, révélant les transformations phonologiques et morphologiques caractéristiques du Sanna.</p>
+
+    <div class="comp-grid">
+
+      <div class="comp-table-wrap">
+        <table class="comp-table">
+          <thead>
+            <tr><th>CyA</th><th>Arabe</th><th>Gloss</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><em>taraf</em></td><td><em>ṭaraf</em></td><td>'end'</td></tr>
+            <tr><td><em>txin</em></td><td><em>ṭaḥīn</em></td><td>'flour'</td></tr>
+            <tr><td><em>pakar</em></td><td><em>baqar</em></td><td>'cattle'</td></tr>
+            <tr><td><em>axsen</em></td><td><em>aḥsan</em></td><td>'better'</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="comp-table-wrap">
+        <table class="comp-table">
+          <thead>
+            <tr><th>CyA</th><th>Arabe</th><th>Gloss</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><em>ipn</em></td><td><em>ibn</em></td><td>'son'</td></tr>
+            <tr><td><em>umm</em></td><td><em>umm</em></td><td>'mother'</td></tr>
+            <tr><td><em>tarp</em></td><td><em>darb</em></td><td>'road'</td></tr>
+            <tr><td><em>klep</em></td><td><em>kilāb</em></td><td>'dogs'</td></tr>
+            <tr><td><em>yaxtop</em></td><td><em>yaktub</em></td><td>'he writes'</td></tr>
+            <tr><td><em>ten</em></td><td><em>yadayn</em></td><td>'hands.<span style="font-variant:small-caps">du</span>'</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="comp-table-wrap comp-table-center">
+        <table class="comp-table">
+          <thead>
+            <tr><th>CyA</th><th>Arabe</th><th>Gloss</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><em>kʲilp</em></td><td><em>kalb</em></td><td>'dog'</td></tr>
+            <tr><td><em>xtuft</em></td><td><em>katabt</em></td><td>'I wrote'</td></tr>
+            <tr><td><em>pkyut</em></td><td><em>buyūt</em></td><td>'houses'</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+.comp-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.8rem;
+  margin: 2.5rem 0;
+  align-items: start;
+}
+.comp-table-center {
+  grid-column: 1 / -1;
+  max-width: 360px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.comp-table-wrap {
+  background: white;
+  border-radius: 10px;
+  border: 1px solid rgba(10,74,110,0.12);
+  box-shadow: 0 2px 16px rgba(10,74,110,0.06);
+  overflow: hidden;
+}
+.comp-table-label {
+  background: linear-gradient(90deg, var(--sea), var(--sea-mid));
+  color: white;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.6rem 1.2rem;
+}
+.comp-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+.comp-table thead th {
+  background: var(--sea-pale);
+  color: var(--sea);
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 700;
+  font-size: 0.82rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.5rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid rgba(10,74,110,0.1);
+}
+.comp-table tbody td {
+  padding: 0.5rem 1rem;
+  border-bottom: 1px solid rgba(10,74,110,0.06);
+  color: var(--text);
+}
+.comp-table tbody tr:last-child td { border-bottom: none; }
+.comp-table tbody tr:nth-child(even) { background: rgba(214,238,248,0.2); }
+.comp-table tbody td:last-child {
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+.comp-table em {
+  font-style: italic;
+  color: var(--terra);
+}
+</style>
+
+<!-- BIBLIOGRAPHIE -->
+<section class="section" id="bibliographie">
+  <div class="container">
+    <p class="section-label">Sources</p>
+    <h2 class="section-title"><em>Bibliographie</em></h2>
+    <div class="title-rule"></div>
+
+    <div class="bib-section">
+
+      <div class="bib-cat">Arabe chypriote : Sources primaires</div>
+
+      <p class="bib-entry">
+        <span class="author">Borg, Alexander.</span>
+        <span class="title">Comparative Glossary of Cypriot Maronite Arabic.</span>
+        Brill, 2004.
+      </p>
+      
+       <p class="bib-entry">
+      <span class="author">El-Shazli, Hana.</span>
+      <span class="title">« L'emprunt linguistique dans le parler arabe de Chypre. »</span>
+      Mini-mémoire de master 1, Sciences du langage, Inalco, Paris, 2020.
+      </p>
+      <p class="bib-entry">
+       <span class="author">El-Shazli Hana</span>. 
+       <span class="title">« Effets du contact de langue, entre supplétisme et bilinguisme : le cas de l'arabe chypriote. » Mémoire de master 2</span>, 
+       Sciences du langage, INALCO, dir. Bruno Hérin, 2022.</p>
+      <p class="bib-entry">
+        <span class="author">Walter, Mary Ann.</span>
+        <span class="title">Cypriot Maronite Arabic</span>, Chapter 7.
+        Middle East Technical University, Northern Cyprus Campus, 2020.
+      </p>
+      <p class="bib-entry">
+        <span class="author">Roth, Arlette.</span>
+        <span class="title">Le parler arabe maronite de Chypre : observations à propos d'un contact linguistique pluriséculaire.</span>
+        Walter de Gruyter, 2004.
+      </p>
+
+      <div class="bib-cat">Dialectologie, parlers périphériques et minoritaires</div>
+
+       <p class="bib-entry">
+         <span class="author">Agius, Dionisius A.</span>
+        <span class="title">« Maltese: A Semitic and Romance Language. »</span> Al-'Arabiyya 13, 
+        n° 1/2 (1980) : 14–27. Georgetown University Press.
+        </p>
+         <p class="bib-entry">
+          <span class="author">Akkuş, Faruk.</span>
+         <span class="title">« Peripheral Arabic Dialects. »</span> In The Routledge Handbook of Arabic Linguistics
+        , 454–471. Routledge, 2018. https://doi.org/10.4324/9781315147062-26.</p>
+        <p class="bib-entry">
+         <span class="author">Benkato, Adam.</span> 
+         <span class="title">« Maghrebi Arabic. » In Arabic and Contact-Induced Change</span>, dir. Christopher Lucas et Stefano Manfredi, 
+         197–212. Berlin : Language Science Press, 2020.
+         </p>
+         <p class="bib-entry">
+        <span class="author">Borg, Alexander.</span>
+        <span class="title">« Some Evolutionary Parallels and Divergences in Cypriot Arabic and Maltese. »</span>
+        Mediterranean Language Review 8 (1994) : 41–67. Harrassowitz Verlag.</p>
+      <p class="bib-entry">
+        <span class="author">Caubet, Dominique.</span>
+        <span class="title">« Pantelleria Arabic, a Peripheral Dialect ? »</span>
+        A Festschrift for George Grigore.
+        Bucharest, Bucharest University Press, 2025.
+      </p>
+      <p class="bib-entry">
+        <span class="author">Cohen, David.</span>
+       <span class="title">« Koinè, Langues Communes et Dialectes Arabes. »</span> 
+        Arabica 9, n° 2 (1962) : 119–144.
+      </p>
+      <p class="bib-entry">
+      <span class="author">Hérin, Bruno et Zhang, Kexin.</span>
+      <span class="title">« Description et documentation des dialectes arabes et des langues minoritaires du Moyen-Orient : entretien avec Bruno Hérin (Inalco). »</span>
+      2023. HAL : <a href="https://hal.science/hal-04082860" style="color:var(--sea-mid);font-size:0.82em">hal-04082860</a>
+      </p>
+      <p class="bib-entry">
+        <span class="author">Horesh, Uri.</span>
+        <span class="title">« Languages of the Middle East and North Africa. »</span>
+        In The SAGE Encyclopedia of Human Communication Sciences and Disorders.
+        Thousand Oaks : SAGE Publications, 2019.
+      </p>
+       <p class="bib-entry">
+      <span class="author">Prochazka, Theodore.</span>
+      <span class="title">« The Shiːʿiː Dialects of Bahrain and Their Relationship to the Eastern Arabian Dialect of Muḥarraq and the Omani Dialect of Al-Ristaːq. »</span>
+      Zeitschrift für Arabische Linguistik 6 (1981) : 16–55.</p>
+
+      <div class="bib-cat">Sociolinguistique & diglossie</div>
+
+      <p class="bib-entry">
+      <span class="author">Germanos, Marie-Aimée et Miller, Catherine.</span>
+      <span class="title">« Sociolinguistique urbaine en domaine arabophone : quels enjeux ? »</span>
+      <em>Langage et société</em> 138, n° 4 (2011) : 5–19.
+      <a href="https://doi.org/10.3917/ls.138.0005" style="color:var(--sea-mid);font-size:0.82em">doi:10.3917/ls.138.0005</a>
+      </p>
+      <p class="bib-entry">
+        <span class="author">Matthey, M.</span>
+        <span class="title">« Diglossie. »</span>
+        Langage et société, Hors série HS1 (2021) : 111–114.
+        <a href="https://doi.org/10.3917/ls.hs01.0112" style="color:var(--sea-mid);font-size:0.82em">doi:10.3917/ls.hs01.0112</a>
+      </p>
+      <p class="bib-entry">
+      <span class="author">Miller, Catherine, Al-Wer, Enam, Caubet, Dominique et Watson, Janet C. E. (dirs.)</span>
+      <span class="title">Arabic in the City : Issues in Dialect Contact and Language Variation.</span>
+      Londres / New York : Routledge, 2007. 354 p.
+      </p>
+      <p class="bib-entry">
+        <span class="author">
+          Owens, Jonathan. </span>
+        <span class="title"> « Creole Arabic: The Orphan of All Orphans. » Anthropological Linguistics</span>
+         43, n° 3 (2001) : 348–378.
+      </p>
+      <p class="bib-entry">
+        <span class="author">Tabouret-Keller, Andrée.</span>
+         <span class="title">« À propos de la notion de diglossie. »</span>
+       Langage et société n° 118 (2006) : 109–128.
+      </p>
+
+      <div class="bib-cat">Grammaire & histoire de la langue arabe</div>
+
+      <p class="bib-entry">
+        <span class="author">Ayoub, Georgine.</span>
+        <span class="title">Cours d'Histoire de la Langue et de la Grammaire arabes.</span>
+        Institut National des Langues et Civilisations Orientales, Paris, 2020.
+      </p>
+
+      <div class="bib-cat">Sources en arabe</div>
+
+      <p class="bib-entry ar">
+        ابن مكي الصقلي، أبو حفص عمر بن خلف.
+        <span class="title">تثقيف اللسان وتلقيح الجنان.</span>
+        دار الكتب العلمية، نوفمبر ٢٠٠٩. ٣٠٧ صفحة.
+      </p>
+      <p class="bib-entry ar">
+        الوافي، سهيل عبد الحكيم، وحسين، عبد الروبي.
+        <span class="title">اللغة العربية : بين الفصحى والعامية.</span>
+        دار النفائس. ١٩٢ صفحة.
+      </p>
+      <p class="bib-entry ar">
+        الشرقاوي، حمد.
+        <span class="title">الفتوحات اللغوية : انتشار اللغة العربية وولادة اللهجات في القرن الأول الهجري.</span>
+        ٢٩٥ صفحة.
+      </p>
+
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span class="foot-name">Myriam BEN HADJ SGHAIER</span>
+  <span class="foot-info">Étudiante en M1 TAL · Master co-accrédité INALCO, Sorbonne Nouvelle &amp; Paris Nanterre · Établissement de rattachement : INALCO</span>
+  <div style="margin-top:1.5rem;font-size:1.2rem;letter-spacing:0.3em;opacity:0.4">
+    سنّا &nbsp;·&nbsp; Σάννα &nbsp;·&nbsp; Sanna
+  </div>
+</footer>
+
+</body>
+</html>
