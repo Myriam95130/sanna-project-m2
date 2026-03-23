@@ -1,5 +1,14 @@
 # Sanna — Projet de Recherche M2
 
+Ce mémoire de M2 fait appel à divers champs disciplinaires tels que la linguistique computationnelle, la dialectologie arabe et la documentation de parlers sévèrement en danger. Il prend pour étude de cas l'arabe chypriote, également connu sous le nom de Sanna (سنّا), un parler arabe pratiqué par les communautés chrétiennes maronites de Chypre. Celui-ci reposera sur une approche computationnelle appliquée à un corpus oral réduit, combinant outils de TAL spécialisés pour les langues peu dotées.
+
+*Dans quelle mesure des méthodes de TAL permettent-elles d'extraire une proto-grammaire morpho-syntaxique à partir d'un corpus oral réduit d'un parler en danger ?*
+
+*Quelles sont les limites du TAL et de la linguistique computationnelle pour les langues orales en danger ?
+Dans quelle mesure les outils du TAL peuvent-ils aider à la documentation des parlers en danger ?*
+
+*Quels types de structures morphosyntaxiques peuvent être mis en évidence à partir d'une approche computationnelle appliquée à un parler arabe très peu doté ?*
+
 ## Chypre & le Sanna
 
 ### L'île de Chypre
